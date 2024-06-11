@@ -20,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragmentDaily).commitAllowingStateLoss();
+        if (savedInstanceState == null){
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.frameLayout, fragmentDaily).commit();
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+        bottomNavigationView.setSelectedItemId(R.id.daily);
     }
 
     class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -34,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
             int id = menuItem.getItemId();
 
-            if (id == R.id.profile) transaction.replace(R.id.frameLayout, fragmentProfile).commitAllowingStateLoss();
-            else if (id == R.id.daily) transaction.replace(R.id.frameLayout, fragmentDaily).commitAllowingStateLoss();
-            else if (id == R.id.calender) transaction.replace(R.id.frameLayout, fragmentCalender).commitAllowingStateLoss();
+            if (id == R.id.daily) transaction.replace(R.id.frameLayout, fragmentDaily);
+            if (id == R.id.profile) transaction.replace(R.id.frameLayout, fragmentProfile);
+            if (id == R.id.calender) transaction.replace(R.id.frameLayout, fragmentCalender);
+
+            transaction.commit();
 
             return true;
         }
