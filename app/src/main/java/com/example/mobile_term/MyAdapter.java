@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyAdapter extends BaseAdapter {
     private Context ctx;
     private ArrayList<MyData> data;
 
-    public MyAdapter(Context ctx, ArrayList<MyData> data){
+    public MyAdapter(Context ctx, ArrayList<MyData> data) {
         this.ctx = ctx;
         this.data = data;
     }
@@ -35,16 +37,17 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null){
+        if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(ctx);
             view = inflater.inflate(R.layout.money_log, viewGroup, false);
         }
 
-        TextView money_type = (TextView) view.findViewById(R.id.money_type);
-        money_type.setText(data.get(i).type);
+        TextView moneyType = view.findViewById(R.id.money_type);
+        moneyType.setText(data.get(i).type);
 
-        TextView money_cost = (TextView) view.findViewById(R.id.money_cost);
-        money_cost.setText(String.valueOf(data.get(i).cost));
+        TextView moneyCost = view.findViewById(R.id.money_cost);
+        String formattedCost = NumberFormat.getNumberInstance(Locale.getDefault()).format(data.get(i).cost);
+        moneyCost.setText(formattedCost);
 
         return view;
     }

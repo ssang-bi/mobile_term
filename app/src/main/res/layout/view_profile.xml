@@ -27,6 +27,16 @@
         app:layout_constraintTop_toBottomOf="@+id/total_assets" />
 
     <TextView
+        android:id="@+id/consumption_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="consumption_cost"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="@+id/consumption"
+        app:layout_constraintTop_toBottomOf="@+id/consumption" />
+
+    <TextView
         android:id="@+id/income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,4 +45,14 @@
         android:textSize="40dp"
         app:layout_constraintLeft_toLeftOf="@+id/consumption"
         app:layout_constraintTop_toBottomOf="@+id/consumption" />
+
+    <TextView
+        android:id="@+id/income_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="income_cost"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="@+id/income"
+        app:layout_constraintTop_toBottomOf="@+id/income" />
 </androidx.constraintlayout.widget.ConstraintLayout>

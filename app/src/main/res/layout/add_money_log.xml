@@ -15,6 +15,7 @@
             android:id="@+id/type_expense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="소비"
             android:checked="true"/>
 
@@ -22,6 +23,7 @@
             android:id="@+id/type_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="소득" />
     </RadioGroup>
 
