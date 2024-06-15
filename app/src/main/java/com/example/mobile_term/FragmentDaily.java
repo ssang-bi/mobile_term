@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -66,12 +65,9 @@ public class FragmentDaily extends Fragment {
         addButton.setOnClickListener(v -> showAddDialog(currentDate));
 
         // 리스트뷰 아이템 롱클릭 리스너 추가
-        dailyListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                showDeleteDialog(position, currentDate);
-                return true;
-            }
+        dailyListView.setOnItemLongClickListener((parent, view1, position, id) -> {
+            showDeleteDialog(position, currentDate);
+            return true;
         });
 
         return view;
@@ -86,6 +82,7 @@ public class FragmentDaily extends Fragment {
 
         RadioGroup typeRadioGroup = dialogView.findViewById(R.id.type_radio_group);
         EditText costInput = dialogView.findViewById(R.id.cost_input);
+        EditText detailInput = dialogView.findViewById(R.id.detail_input);
 
         costInput.addTextChangedListener(new TextWatcher() {
             private String current = "";
@@ -125,18 +122,21 @@ public class FragmentDaily extends Fragment {
                 RadioButton selectedTypeButton = dialogView.findViewById(selectedTypeId);
                 String type = selectedTypeButton.getText().toString();
 
-                if (costInput.getText().toString().trim().isEmpty()) {
+                String costText = costInput.getText().toString().trim();
+                if (costText.isEmpty()) {
                     Toast.makeText(requireContext(), "금액을 입력하세요.", Toast.LENGTH_SHORT).show();
                     return; // 금액 입력란이 비어있으면 저장하지 않고 리턴
                 }
 
-                int cost = Integer.parseInt(costInput.getText().toString().replaceAll("[,]", ""));
+                int cost = Integer.parseInt(costText.replaceAll("[,]", ""));
+                String detail = detailInput.getText().toString();
 
                 // DB에 데이터 삽입
                 ContentValues values = new ContentValues();
                 values.put("date", date);
                 values.put("type", type);
                 values.put("cost", cost);
+                values.put("detail", detail);
                 db.insert("money_log", null, values);
 
                 // ListView 갱신
@@ -173,13 +173,14 @@ public class FragmentDaily extends Fragment {
     private void loadData(String date) {
         moneyLogs.clear();
         // DB에서 데이터 로드 (SQL 쿼리)
-        String query = "SELECT type, cost FROM money_log WHERE date = ?";
+        String query = "SELECT type, cost, detail FROM money_log WHERE date = ?";
         String[] selectionArgs = { date };
         Cursor cursor = db.rawQuery(query, selectionArgs);
         while (cursor.moveToNext()) {
             String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
             int cost = cursor.getInt(cursor.getColumnIndexOrThrow("cost"));
-            moneyLogs.add(new MyData(type, cost));
+            String detail = cursor.getString(cursor.getColumnIndexOrThrow("detail"));
+            moneyLogs.add(new MyData(type, cost, detail));
         }
         cursor.close();
         adapter.notifyDataSetChanged();

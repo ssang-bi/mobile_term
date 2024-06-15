@@ -18,7 +18,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "date TEXT, " +
                 "type TEXT, " +
-                "cost INTEGER)";
+                "cost INTEGER, " +
+                "detail TEXT)";
         db.execSQL(createTable);
     }
 

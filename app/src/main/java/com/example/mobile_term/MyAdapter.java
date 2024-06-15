@@ -49,6 +49,9 @@ public class MyAdapter extends BaseAdapter {
         String formattedCost = NumberFormat.getNumberInstance(Locale.getDefault()).format(data.get(i).cost);
         moneyCost.setText(formattedCost);
 
+        TextView moneyDetail = view.findViewById(R.id.money_detail);
+        moneyDetail.setText(data.get(i).detail);
+
         return view;
     }
 }
