@@ -77,7 +77,7 @@ public class FragmentDaily extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("데이터 추가");
 
-        View dialogView = getLayoutInflater().inflate(R.layout.add_money_log, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.add_money_dialog, null);
         builder.setView(dialogView);
 
         RadioGroup typeRadioGroup = dialogView.findViewById(R.id.type_radio_group);
