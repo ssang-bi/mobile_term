@@ -21,9 +21,9 @@ public class FragmentProfile extends Fragment {
     private SQLiteDatabase db;
     private DBHelper dbHelper;
 
-    private TextView consumptionCostTextView;
-    private TextView incomeCostTextView;
-    private TextView thisMonthConsumptionTextView;
+    private TextView consumptionCostText;
+    private TextView incomeCostText;
+    private TextView thisMonthConsumptionText;
 
     @Nullable
     @Override
@@ -31,9 +31,9 @@ public class FragmentProfile extends Fragment {
         View view = inflater.inflate(R.layout.view_profile, container, false);
 
         // 텍스트 뷰 초기화
-        consumptionCostTextView = view.findViewById(R.id.consumption_cost);
-        incomeCostTextView = view.findViewById(R.id.income_cost);
-        thisMonthConsumptionTextView = view.findViewById(R.id.month_consumption_cost);
+        consumptionCostText = view.findViewById(R.id.consumption_cost);
+        incomeCostText = view.findViewById(R.id.income_cost);
+        thisMonthConsumptionText = view.findViewById(R.id.month_consumption_cost);
 
         // DB 초기화
         dbHelper = new DBHelper(requireContext());
@@ -51,11 +51,11 @@ public class FragmentProfile extends Fragment {
     private void setCostSums() {
         // 소비 합계 계산
         int totalConsumption = calculateTotalCost("소비");
-        consumptionCostTextView.setText(formatCurrency(totalConsumption));
+        consumptionCostText.setText(formatCurrency(totalConsumption));
 
         // 소득 합계 계산
         int totalIncome = calculateTotalCost("소득");
-        incomeCostTextView.setText(formatCurrency(totalIncome));
+        incomeCostText.setText(formatCurrency(totalIncome));
     }
 
     private void setThisMonthConsumption() {
@@ -71,7 +71,7 @@ public class FragmentProfile extends Fragment {
 
         // 이번 달 소비 합계 계산
         int thisMonthConsumption = calculateTotalCostForDateRange("소비", startDate, endDate);
-        thisMonthConsumptionTextView.setText(formatCurrency(thisMonthConsumption));
+        thisMonthConsumptionText.setText(formatCurrency(thisMonthConsumption));
     }
 
     private int calculateTotalCost(String type) {
