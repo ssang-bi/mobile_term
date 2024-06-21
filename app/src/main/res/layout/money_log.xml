@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:text="유형"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:text=":"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/money_cost"
@@ -32,13 +32,13 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="cost"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="원"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <TextView

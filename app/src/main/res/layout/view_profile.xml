@@ -5,36 +5,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/month_consumption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp"
-        android:text="이번 달 소비"
-        android:textSize="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
-    <TextView
-        android:id="@+id/month_consumption_cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="month_consumption_cost"
-        android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="@+id/month_consumption"
-        app:layout_constraintTop_toBottomOf="@+id/month_consumption" />
 
     <TextView
         android:id="@+id/consumption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="총 소비"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:text="평균 소비"
         android:textSize="40dp"
-        app:layout_constraintLeft_toLeftOf="@+id/month_consumption"
-        app:layout_constraintTop_toBottomOf="@+id/month_consumption" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/consumption_cost"
@@ -51,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="총 소득"
+        android:text="평균 소득"
         android:textSize="40dp"
         app:layout_constraintLeft_toLeftOf="@+id/consumption"
         app:layout_constraintTop_toBottomOf="@+id/consumption" />
@@ -65,4 +47,24 @@
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="@+id/income"
         app:layout_constraintTop_toBottomOf="@+id/income" />
+
+    <TextView
+        android:id="@+id/saving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="총 저축액"
+        android:textSize="40dp"
+        app:layout_constraintLeft_toLeftOf="@+id/income"
+        app:layout_constraintTop_toBottomOf="@+id/income" />
+
+    <TextView
+        android:id="@+id/saving_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="saving_cost"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="@+id/saving"
+        app:layout_constraintTop_toBottomOf="@+id/saving" />
 </androidx.constraintlayout.widget.ConstraintLayout>
