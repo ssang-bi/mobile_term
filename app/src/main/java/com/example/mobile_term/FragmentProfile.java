@@ -82,7 +82,7 @@ public class FragmentProfile extends Fragment {
         return totalCost;
     }
 
-    private String formatCurrency(int amount) {
+    private String formatCurrency(int amount) {     // 입력 값을 화폐 단위로 표시
         NumberFormat formatter = NumberFormat.getInstance();
         return formatter.format(amount) + "원";
     }

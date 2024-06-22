@@ -82,11 +82,8 @@ public class FragmentCalender extends Fragment {
             String detail = cursor.getString(cursor.getColumnIndexOrThrow("detail"));
             moneyLogs.add(new MyData(type, cost, detail));
 
-            if (type.equals("소비")) {
-                totalConsumption += cost;
-            } else if (type.equals("소득")) {
-                totalIncome += cost;
-            }
+            if (type.equals("소비")) totalConsumption += cost;
+            else if (type.equals("소득")) totalIncome += cost;
         }
         cursor.close();
 
@@ -115,7 +112,7 @@ public class FragmentCalender extends Fragment {
         builder.show();
     }
 
-    private String formatCurrency(int amount) {
+    private String formatCurrency(int amount) {     // 입력 값을 화폐 단위로 표시
         NumberFormat formatter = NumberFormat.getInstance();
         return formatter.format(amount);
     }
