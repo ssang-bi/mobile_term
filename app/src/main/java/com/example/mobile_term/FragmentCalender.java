@@ -93,7 +93,7 @@ public class FragmentCalender extends Fragment {
         adapter.notifyDataSetChanged();
 
         if (moneyLogs.isEmpty()) {
-            Toast.makeText(requireContext(), "해당 날짜에 데이터가 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "해당 날짜에 거래 내역이 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 

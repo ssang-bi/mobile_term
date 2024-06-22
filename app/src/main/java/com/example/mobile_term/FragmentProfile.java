@@ -60,7 +60,7 @@ public class FragmentProfile extends Fragment {
         savingCostText.setText(formatCurrency(totalSaving));
     }
 
-    private int calculateAvgCost(String type) {
+    private int calculateAvgCost(String type) { // 소득, 소비 평균 구하기
         int costAvg = 0;
         String query = "SELECT AVG(cost) as total FROM money_log WHERE type = ?";
         Cursor cursor = db.rawQuery(query, new String[]{type});
@@ -71,7 +71,7 @@ public class FragmentProfile extends Fragment {
         return costAvg;
     }
 
-    private int calculateTotalCost(String type) {
+    private int calculateTotalCost(String type) {   // 총 저축 액 구하기
         int totalCost = 0;
         String query = "SELECT SUM(cost) as total FROM money_log WHERE type = ?";
         Cursor cursor = db.rawQuery(query, new String[]{type});
