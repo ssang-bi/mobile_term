@@ -36,6 +36,7 @@ public class FragmentDaily extends Fragment {
     private SQLiteDatabase db;
     private DBHelper dbHelper;
     private TextView todayDate;
+    private TextView monthCostTextView;
 
     @Nullable
     @Override
@@ -46,6 +47,9 @@ public class FragmentDaily extends Fragment {
         todayDate = view.findViewById(R.id.today_date);
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         todayDate.setText(currentDate);
+
+        // 이번 달 지출 금액 TextView 초기화
+        monthCostTextView = view.findViewById(R.id.month_cost);
 
         // ListView 초기화
         dailyListView = view.findViewById(R.id.daily_list);
@@ -59,6 +63,9 @@ public class FragmentDaily extends Fragment {
 
         // 오늘 날짜의 데이터 로드
         loadData(currentDate);
+
+        // 이번 달 지출 금액 로드
+        loadMonthlyCost();
 
         // 추가 버튼 클릭 리스너
         Button addButton = view.findViewById(R.id.add_button);
@@ -111,7 +118,7 @@ public class FragmentDaily extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-        builder.setPositiveButton("저장", null); // 초기에는 저장 버튼 비활성화 상태로 설정
+        builder.setPositiveButton("저장", null);
 
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(dialogInterface -> {
@@ -125,7 +132,7 @@ public class FragmentDaily extends Fragment {
                 String costText = costInput.getText().toString().trim();
                 if (costText.isEmpty()) {
                     Toast.makeText(requireContext(), "금액을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return; // 금액 입력란이 비어있으면 저장하지 않고 리턴
+                    return;
                 }
 
                 int cost = Integer.parseInt(costText.replaceAll("[,]", ""));
@@ -141,6 +148,9 @@ public class FragmentDaily extends Fragment {
 
                 // ListView 갱신
                 loadData(date);
+
+                // 이번 달 지출 금액 갱신
+                loadMonthlyCost();
 
                 // 다이얼로그 닫기
                 dialog.dismiss();
@@ -163,6 +173,8 @@ public class FragmentDaily extends Fragment {
             db.delete("money_log", whereClause, whereArgs);
             // ListView 갱신
             loadData(date);
+            // 이번 달 지출 금액 갱신
+            loadMonthlyCost();
             Toast.makeText(requireContext(), "항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
         });
         builder.setNegativeButton("취소", (dialog, which) -> dialog.dismiss());
@@ -184,5 +196,16 @@ public class FragmentDaily extends Fragment {
         }
         cursor.close();
         adapter.notifyDataSetChanged();
+    }
+
+    private void loadMonthlyCost() {
+        int monthCost = 0;
+        String query = "SELECT SUM(cost) as total FROM money_log WHERE type = '소비' AND strftime('%Y-%m', date) = strftime('%Y-%m', 'now')";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            monthCost = cursor.getInt(cursor.getColumnIndexOrThrow("total"));
+        }
+        cursor.close();
+        monthCostTextView.setText(NumberFormat.getNumberInstance(Locale.getDefault()).format(monthCost) + "원");
     }
 }
